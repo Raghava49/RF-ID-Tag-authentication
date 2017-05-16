@@ -1,0 +1,85 @@
+BL51 BANKED LINKER/LOCATER V6.22                                                        02/03/2017  16:06:51  PAGE 1
+
+
+BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
+C:\KEIL_V5\C51\BIN\BL51.EXE .\Objects\tes.obj TO .\Objects\project_hex PRINT (.\Listings\project_hex.m51) RAMSIZE (256)
+
+
+MEMORY MODEL: SMALL
+
+
+INPUT MODULES INCLUDED:
+  .\Objects\tes.obj (TES)
+  C:\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+
+
+LINK MAP OF MODULE:  .\Objects\project_hex (TES)
+
+
+            TYPE    BASE      LENGTH    RELOCATION   SEGMENT NAME
+            -----------------------------------------------------
+
+            * * * * * * *   D A T A   M E M O R Y   * * * * * * *
+            REG     0000H     0008H     ABSOLUTE     "REG BANK 0"
+            IDATA   0008H     0001H     UNIT         ?STACK
+
+            * * * * * * *   C O D E   M E M O R Y   * * * * * * *
+            CODE    0000H     0003H     ABSOLUTE     
+            CODE    0003H     0020H     UNIT         ?PR?_DELAY?TES
+            CODE    0023H     000CH     UNIT         ?PR?MAIN?TES
+            CODE    002FH     000CH     UNIT         ?C_C51STARTUP
+
+
+
+OVERLAY MAP OF MODULE:   .\Objects\project_hex (TES)
+
+
+SEGMENT
+  +--> CALLED SEGMENT
+---------------------
+?C_C51STARTUP
+  +--> ?PR?MAIN?TES
+
+?PR?MAIN?TES
+  +--> ?PR?_DELAY?TES
+
+
+
+SYMBOL TABLE OF MODULE:  .\Objects\project_hex (TES)
+
+  VALUE           TYPE          NAME
+  ----------------------------------
+
+  -------         MODULE        TES
+  C:0000H         SYMBOL        _ICE_DUMMY_
+  D:0080H         PUBLIC        P0
+  C:0003H         PUBLIC        _delay
+  C:0023H         PUBLIC        main
+  -------         PROC          _DELAY
+  D:0006H         SYMBOL        c
+  -------         DO            
+  D:0004H         SYMBOL        i
+BL51 BANKED LINKER/LOCATER V6.22                                                      02/03/2017  16:06:51  PAGE 2
+
+
+  D:0002H         SYMBOL        j
+  -------         ENDDO         
+  C:0003H         LINE#         3
+  C:0003H         LINE#         4
+  C:0003H         LINE#         6
+  C:000DH         LINE#         7
+  C:000DH         LINE#         8
+  C:001BH         LINE#         9
+  C:0022H         LINE#         10
+  -------         ENDPROC       _DELAY
+  -------         PROC          MAIN
+  C:0023H         LINE#         4
+  C:0023H         LINE#         5
+  C:0023H         LINE#         6
+  C:0026H         LINE#         7
+  C:002DH         LINE#         8
+  -------         ENDPROC       MAIN
+  -------         ENDMOD        TES
+
+Program Size: data=9.0 xdata=0 code=59
+LINK/LOCATE RUN COMPLETE.  0 WARNING(S),  0 ERROR(S)

@@ -1,0 +1,3 @@
+".\Objects\tes.obj" 
+TO ".\Objects\project_hex" 
+PRINT(".\Listings\project_hex.m51") RAMSIZE(256) 

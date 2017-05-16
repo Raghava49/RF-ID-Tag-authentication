@@ -1,0 +1,99 @@
+C51 COMPILER V9.55   SRC                                                                   01/22/2017 19:15:37 PAGE 1   
+
+
+C51 COMPILER V9.55, COMPILATION OF MODULE SRC
+OBJECT MODULE PLACED IN .\Objects\src.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE src.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\src.l
+                    -st) TABS(2) OBJECT(.\Objects\src.obj)
+
+line level    source
+
+   1          #include <reg51.h>
+   2          #include <stdio.h>
+   3          #include "UDF/delay.h"
+   4          #include "UDF/uart.h"
+   5          #include "UDF/lcd.h"
+   6          #include "UDF/RF_ID.h"
+   7          #include "UDF/ADC_8.h"
+*** WARNING C280 IN LINE 14 OF UDF/ADC_8.h: 'value': unreferenced local variable
+   8          #include "UDF/keys.h"
+   9          
+  10          sbit M0 = P3^2;
+  11          sbit M1 = P3^3;
+  12          sbit M2 = P3^4;
+  13          sbit M3 = P3^5;
+  14          
+  15          void main() {
+  16   1        unsigned int *cde;
+  17   1      
+  18   1      
+  19   1        uart_init();
+  20   1        lcd_init();
+  21   1        printf("PLEASE AUTHENTICATE YOURSELF\n");
+  22   1        lcd_string("AUTHENTICATION");
+  23   1        lcd_cmd(0xC0);
+  24   1        lcd_string("PLEASE");
+  25   1        cde = scan_RF_ID();
+  26   1        if(cde[0] == 32 && cde[1] == 55990){
+  27   2          lcd_cmd(1);
+  28   2          printf("Welcome ROS");
+  29   2          lcd_cmd(0x82);
+  30   2          lcd_string("WELCOME _ROS");
+  31   2          lcd_cmd(0xc0);
+  32   2          lcd_string("SEL. DEV. 1-2");
+  33   2          get_key();
+  34   2          lcd_cmd(0xC0);
+  35   2          lcd_string("DEVICE_");
+  36   2          while(1){
+  37   3            get_key();
+  38   3            Read_ADC(sw_fg);
+  39   3            lcd_cmd(0xC7);
+  40   3            lcd_data(sw_fg+1+48);
+  41   3            printf("%d\n", ADC);
+  42   3            lcd_cmd(0xC8);
+  43   3            lcd_string(" : ");
+  44   3            lcd_num(ADC);
+  45   3            lcd_string("  ");
+  46   3            if(ADC > 127){
+  47   4              for(i=0;i<50;i++){
+  48   5                
+  49   5                M3 = 0; M0 = M1 = M2 = 1;
+  50   5                delay(2);
+  51   5                M2 = 0; M0 = M1 = M3 = 1;
+  52   5                delay(2);
+  53   5                M1 = 0; M0 = M3 = M2 = 1;
+C51 COMPILER V9.55   SRC                                                                   01/22/2017 19:15:37 PAGE 2   
+
+  54   5                delay(2);
+  55   5                M0 = 0; M3 = M1 = M2 = 1;
+  56   5                delay(2);
+  57   5              }
+  58   4            }
+  59   3            else{
+  60   4              M0 = M1 = M2 = M3 = 0;
+  61   4            }
+  62   3          }
+  63   2        }
+  64   1        else{
+  65   2          lcd_cmd(1);
+  66   2          lcd_string("PLEASE TRY AGAIN");
+  67   2          printf("PLEASE TRY AGAIN\n");
+  68   2          delay(500);
+  69   2        }
+  70   1      }
+*** WARNING C290 IN LINE 64 OF src.c: missing return value
+*** WARNING C290 IN LINE 19 OF src.c: missing return value
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    965    ----
+   CONSTANT SIZE    =    145    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =     14      32
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  3 WARNING(S),  0 ERROR(S)
