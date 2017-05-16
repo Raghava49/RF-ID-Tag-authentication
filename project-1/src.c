@@ -15,7 +15,6 @@ sbit M3 = P3^5;
 void main() {
 	unsigned int *cde;
 
-
 	uart_init();
 	lcd_init();
 	printf("PLEASE AUTHENTICATE YOURSELF\n");
